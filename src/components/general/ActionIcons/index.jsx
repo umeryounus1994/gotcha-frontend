@@ -32,6 +32,8 @@ const ActionIcons = ({
       if (type === "Users") link = backendUrl + `/users/updateStatus`;
       else if (type === "Coupons-group")
         link = backendUrl + `/coupons/delete-group/${rowData._id}`;
+      else if (type === "Package")
+        link = backendUrl + `/packages/delete/${rowData._id}`;
       return axios.post(link, {
         Id: rowData._id,
         IsDeleted: true,
@@ -51,6 +53,7 @@ const ActionIcons = ({
         else if (type === "Coupons")
           queryClient.invalidateQueries("fetchCoupons");
         else if (type === "parks") queryClient.invalidateQueries("fetchParks");
+        else if (type === "Package") queryClient.invalidateQueries("fetchPackages");
       },
       onError: (res) => {
         toast.error(res.response.data.message);

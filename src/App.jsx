@@ -19,6 +19,7 @@ import Park from "./pages/Park";
 import Company from "./pages/Companies";
 import ViewParks from "./pages/Park/ViewParks";
 import ViewDrops from "./pages/Drop/ViewDrops";
+import Packages from "./pages/Packages";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/offers" element={<OfferTypes />} />
             <Route path="/coupons" element={<Coupons />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/packages" element={<Packages />} />
           </Route>
         </Routes>
       </BrowserRouter>

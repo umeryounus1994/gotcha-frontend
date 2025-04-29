@@ -65,11 +65,11 @@ export default function Sidebar() {
             icon: <User2Icon size={18} color='gray'/>,
             to: "/users",
           },
-          // {
-          //   label: "Companies",
-          //   icon: <Building2 size={18} />,
-          //   to: "/companies",
-          // },
+          {
+            label: "Packages",
+            icon: <User2Icon size={18} color='gray'/>,
+            to: "/packages",
+          },
         ],
       },
       {
