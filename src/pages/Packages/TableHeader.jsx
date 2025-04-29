@@ -27,7 +27,7 @@ export const Columns = (onHandleStatus, advanced = false) => [
     cell: (row) => <Text>{row?.Coins || "N/A"}</Text>,
   },
   {
-    name: "Free Coints",
+    name: "Free Coins",
     selector: (row) => row.FreeCoins,
     sortable: true,
     center: true,
