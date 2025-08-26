@@ -24,6 +24,7 @@ const AddUserModal = ({ edit = false, data }) => {
       Password: "",
       FullName: "",
       Gender: "",
+      Address: "",
       YearOfBirth: null,
     },
 
@@ -101,6 +102,12 @@ const AddUserModal = ({ edit = false, data }) => {
               form={form}
               validateName={"YearOfBirth"}
               required={true}
+            />
+            <InputField
+              label={"Address"}
+              type="text"
+              form={form}
+              validateName={"Address"}
             />
             <PasswordInput
               label="Password"

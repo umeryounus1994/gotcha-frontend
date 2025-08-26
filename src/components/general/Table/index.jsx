@@ -33,9 +33,9 @@ const DataGrid = ({ columns, data, type, download = false, ...props }) => {
       csvData.push({
         "Full Name": element.FullName || "N/A",
         "Email": element.Email || "N/A",
-        "Account No.": element?.AccountNumber || "N/A",
+        // "Account No.": element?.AccountNumber || "N/A",
         "Phone No.": element.ContactNumber || "N/A",
-        "BSB": element.BSB || "N/A",
+        "Address": element.Address || "N/A",
         "Total Coins": element.TotalCoin,
         "Registration Date": new Date(element.CreationTimestamp).toLocaleDateString(),
         "Premium User" : element.PurchasePackage == true ? 'Yes' : 'No',
