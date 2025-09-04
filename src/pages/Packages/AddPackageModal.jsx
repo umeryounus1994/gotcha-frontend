@@ -1,4 +1,4 @@
-import { ActionIcon, Group, Modal, PasswordInput, Stack } from "@mantine/core";
+import { ActionIcon, Group, Modal, PasswordInput, Stack, FileInput } from "@mantine/core";
 import React, { useContext, useEffect } from "react";
 import Button from "../../components/general/Button";
 import { useDisclosure } from "@mantine/hooks";
@@ -11,6 +11,7 @@ import { backendUrl } from "../../constants";
 import toast from "react-hot-toast";
 import { UserContext } from "../../context";
 import { Pencil } from "tabler-icons-react";
+import { Photo } from "tabler-icons-react";
 
 const AddUserModal = ({ edit = false, data }) => {
   const queryClient = useQueryClient();
@@ -22,8 +23,9 @@ const AddUserModal = ({ edit = false, data }) => {
     initialValues: {
       Name: "",
       Price: "",
-      Coints: "",
-      FreeCoins: ""
+      Coins: "",
+      FreeCoins: "",
+      PackageImage: null,
     },
   });
   useEffect(() => {
@@ -31,14 +33,22 @@ const AddUserModal = ({ edit = false, data }) => {
   }, [data, opened]);
   const handleAddUser = useMutation(
     async (values) => {
+       let formData = new FormData();
+      formData.append("Name", values.Name);
+      formData.append("Price", values.Price);
+      formData.append("Coins", values.Coins);
+      formData.append("FreeCoins", values.FreeCoins);
+      if (values.PackageImage) {
+        formData.append("PackageImage", values.PackageImage);
+      }
       let link = backendUrl + "/packages";
       if (edit) {
-        values.Id = data._id;
+        formData.append("Id", data._id);
         link = link + `/update`;
-        return axios.post(link, values, {});
+        return axios.post(link, formData, {});
       } else {
         link = link + "/add";
-        return axios.post(link, values, {});
+        return axios.post(link, formData, {});
       }
     },
     {
@@ -97,6 +107,14 @@ const AddUserModal = ({ edit = false, data }) => {
               type="number"
               form={form}
               validateName={"FreeCoins"}
+            />
+            <FileInput
+              label="Package Image"
+              size="md"
+              placeholder="Upload JPG/PNG image"
+              radius={"md"}
+              leftSection={<Photo width={30} />}
+              {...form.getInputProps("PackageImage")}
             />
 
             <Group gap={"md"} justify="flex-end" mt="md">
