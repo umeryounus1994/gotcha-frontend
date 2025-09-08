@@ -1,4 +1,4 @@
-import { ActionIcon, Group, Modal, PasswordInput, Stack, FileInput } from "@mantine/core";
+import { ActionIcon, Group, Modal, Stack, FileInput, Switch } from "@mantine/core";
 import React, { useContext, useEffect } from "react";
 import Button from "../../components/general/Button";
 import { useDisclosure } from "@mantine/hooks";
@@ -26,6 +26,7 @@ const AddUserModal = ({ edit = false, data }) => {
       Coins: "",
       FreeCoins: "",
       PackageImage: null,
+      IsBanner: false,
     },
   });
   useEffect(() => {
@@ -38,6 +39,7 @@ const AddUserModal = ({ edit = false, data }) => {
       formData.append("Price", values.Price);
       formData.append("Coins", values.Coins);
       formData.append("FreeCoins", values.FreeCoins);
+      formData.append("IsBanner", values.IsBanner);
       if (values.PackageImage) {
         formData.append("PackageImage", values.PackageImage);
       }
@@ -116,7 +118,11 @@ const AddUserModal = ({ edit = false, data }) => {
               leftSection={<Photo width={30} />}
               {...form.getInputProps("PackageImage")}
             />
-
+            <Switch
+              label="Banner Package"
+              description="Mark this package as a banner package"
+              {...form.getInputProps("IsBanner", { type: 'checkbox' })}
+            />
             <Group gap={"md"} justify="flex-end" mt="md">
               <Button
                 label={"Cancel"}

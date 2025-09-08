@@ -16,14 +16,14 @@ export const Columns = (onHandleStatus, advanced = false) => [
     selector: (row) => row.Price,
     sortable: true,
     // center: true,
-    width: "230px",
+    width: "120px",
   },
   {
     name: "Coins",
     selector: (row) => row.Coins,
     sortable: true,
     center: true,
-    width: "170px",
+    width: "185px",
     cell: (row) => <Text>{row?.Coins || "N/A"}</Text>,
   },
   {
@@ -31,9 +31,20 @@ export const Columns = (onHandleStatus, advanced = false) => [
     selector: (row) => row.FreeCoins,
     sortable: true,
     center: true,
-    width: "170px",
+    width: "185px",
     cell: (row) => <Text>{row?.FreeCoins || "N/A"}</Text>,
   },
+  {
+    name: "Is Banner",
+    selector: (row) => row.IsBanner,
+    center: true,
+    width: "180px",
+    cell: (row) => (
+      <Badge bg={row.IsBanner ? "blue" : "gray"}>
+        {row.IsBanner ? "Banner" : "Regular"}
+      </Badge>
+    ),
+  }, 
   {
     name: "Status",
     selector: (row) => row.IsActive,
