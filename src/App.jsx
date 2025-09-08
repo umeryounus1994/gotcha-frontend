@@ -20,7 +20,8 @@ import Company from "./pages/Companies";
 import ViewParks from "./pages/Park/ViewParks";
 import ViewDrops from "./pages/Drop/ViewDrops";
 import Packages from "./pages/Packages";
-
+import Versions from "./pages/Versions/index";
+  
 function App() {
   return (
     <MantineProvider>
@@ -41,6 +42,7 @@ function App() {
             <Route path="/coupons" element={<Coupons />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/packages" element={<Packages />} />
+            <Route path="/versions" element={<Versions />} />
           </Route>
         </Routes>
       </BrowserRouter>

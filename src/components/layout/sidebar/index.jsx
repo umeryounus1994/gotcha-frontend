@@ -83,6 +83,12 @@ export default function Sidebar() {
             to: "/offers",
           },
           {
+          label: "Versions",
+          icon: <Puzzle size={18} color='gray'/>,
+          isLink: true,
+          to: "/versions",
+          },
+          {
             label: "Settings",
             icon: <Settings size={18} color='gray'/>,
             to: "/settings",

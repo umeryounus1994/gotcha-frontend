@@ -34,13 +34,13 @@ const ActionIcons = ({
         link = backendUrl + `/coupons/delete-group/${rowData._id}`;
       else if (type === "Package")
         link = backendUrl + `/packages/delete/${rowData._id}`;
+      else if (type === "Versions")
+        link = backendUrl + `/versions/delete/${rowData._id}`;
+      
       return axios.post(link, {
         Id: rowData._id,
         IsDeleted: true,
         IsActive: true,
-        // headers: {
-        //   authorization: `Bearer ${user.token}`,
-        // },
       });
     },
     {
@@ -54,6 +54,7 @@ const ActionIcons = ({
           queryClient.invalidateQueries("fetchCoupons");
         else if (type === "parks") queryClient.invalidateQueries("fetchParks");
         else if (type === "Package") queryClient.invalidateQueries("fetchPackages");
+        else if (type === "Versions") queryClient.invalidateQueries("fetchVersions");
       },
       onError: (res) => {
         toast.error(res.response.data.message);
