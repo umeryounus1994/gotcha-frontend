@@ -25,6 +25,7 @@ const AddUserModal = ({ edit = false, data }) => {
       Price: "",
       Coins: "",
       FreeCoins: "",
+      FreeCoinsText: "",
       PackageImage: null,
       IsBanner: false,
     },
@@ -39,6 +40,7 @@ const AddUserModal = ({ edit = false, data }) => {
       formData.append("Price", values.Price);
       formData.append("Coins", values.Coins);
       formData.append("FreeCoins", values.FreeCoins);
+      formData.append("FreeCoinsText", values.FreeCoinsText); 
       formData.append("IsBanner", values.IsBanner);
       if (values.PackageImage) {
         formData.append("PackageImage", values.PackageImage);
@@ -110,6 +112,12 @@ const AddUserModal = ({ edit = false, data }) => {
               form={form}
               validateName={"FreeCoins"}
             />
+            <InputField
+              label={"Free Coins Text"}
+              form={form}
+              validateName={"FreeCoinsText"}
+              placeholder="e.g., 10 GT Free Coins"
+            /> 
             <FileInput
               label="Package Image"
               size="md"
