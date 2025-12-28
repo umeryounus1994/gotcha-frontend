@@ -5,6 +5,7 @@ import "./index.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/index.jsx";
+import { RegulatorProvider } from "./context/RegulatorContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,10 +19,12 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <UserProvider>
-      <QueryClientProvider client={queryClient}>
-        <Toaster />
-        <App />
-      </QueryClientProvider>
+      <RegulatorProvider>
+        <QueryClientProvider client={queryClient}>
+          <Toaster />
+          <App />
+        </QueryClientProvider>
+      </RegulatorProvider>
     </UserProvider>
   </React.StrictMode>
 );

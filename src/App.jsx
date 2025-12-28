@@ -21,6 +21,14 @@ import ViewParks from "./pages/Park/ViewParks";
 import ViewDrops from "./pages/Drop/ViewDrops";
 import Packages from "./pages/Packages";
 import Versions from "./pages/Versions/index";
+import PrizePool from "./pages/PrizePool";
+import RegulatorLogin from "./pages/Regulator/Login";
+import RegulatorShell from "./components/layout/regulator-shell";
+import RegulatorDashboard from "./pages/Regulator/Dashboard";
+import Regulators from "./pages/Regulators";
+import GenerateDrop from "./pages/PrizeDrop/GenerateDrop";
+import PrizePoolData from "./pages/PrizePoolData";
+import RNGData from "./pages/RNGData";
   
 function App() {
   return (
@@ -28,6 +36,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/signin" element={<Signin />} />
+          <Route path="/regulator/login" element={<RegulatorLogin />} />
+          <Route path="/regulator" element={<RegulatorShell />}>
+            <Route path="dashboard" element={<RegulatorDashboard />} />
+          </Route>
           <Route path="/" element={<CustomAppShell />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/add-park" element={<Park />} />
@@ -43,6 +55,11 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/packages" element={<Packages />} />
             <Route path="/versions" element={<Versions />} />
+            <Route path="/prize-pool" element={<PrizePool />} />
+            <Route path="/generate-drop" element={<GenerateDrop />} />
+            <Route path="/prize-pool-data" element={<PrizePoolData />} />
+            <Route path="/rng-data" element={<RNGData />} />
+            <Route path="/regulators" element={<Regulators />} />
           </Route>
         </Routes>
       </BrowserRouter>

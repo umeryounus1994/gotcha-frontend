@@ -1,5 +1,5 @@
 import { ActionIcon, Flex, Tooltip } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 // import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { Eye, Trash, TrashOff } from "tabler-icons-react";
@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Check, X } from "lucide-react";
 import SuspendModal from "../SuspendModal";
+import { UserContext } from "../../../context";
 
 const ActionIcons = ({
   type,
@@ -24,11 +25,19 @@ const ActionIcons = ({
 }) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const [openDelete, setOpenDelete] = useState(false);
   const [openSuspend, setOpenSuspend] = useState(false);
   const handleDelete = useMutation(
     async () => {
       let link = backendUrl + `/${type.toLowerCase()}/${rowData._id}`;
+      let body = {
+        Id: rowData._id,
+        IsDeleted: true,
+        IsActive: true,
+      };
+      let headers = {};
+
       if (type === "Users") link = backendUrl + `/users/updateStatus`;
       else if (type === "Coupons-group")
         link = backendUrl + `/coupons/delete-group/${rowData._id}`;
@@ -36,12 +45,22 @@ const ActionIcons = ({
         link = backendUrl + `/packages/delete/${rowData._id}`;
       else if (type === "Versions")
         link = backendUrl + `/versions/delete/${rowData._id}`;
+      else if (type === "PrizePool") {
+        link = backendUrl + `/main-prize-pool/delete`;
+        body = { Id: rowData._id };
+        headers = {
+          authorization: user?.accessToken || "",
+        };
+      }
+      else if (type === "Regulator") {
+        link = backendUrl + `/regulator/delete`;
+        body = { Id: rowData._id || rowData.Id };
+        headers = {
+          authorization: `${user?.accessToken || ""}`,
+        };
+      }
       
-      return axios.post(link, {
-        Id: rowData._id,
-        IsDeleted: true,
-        IsActive: true,
-      });
+      return axios.post(link, body, { headers });
     },
     {
       onSuccess: (res) => {
@@ -55,9 +74,12 @@ const ActionIcons = ({
         else if (type === "parks") queryClient.invalidateQueries("fetchParks");
         else if (type === "Package") queryClient.invalidateQueries("fetchPackages");
         else if (type === "Versions") queryClient.invalidateQueries("fetchVersions");
+        else if (type === "PrizePool") queryClient.invalidateQueries("fetchPrizePool");
+        else if (type === "Regulator") queryClient.invalidateQueries("fetchRegulators");
+        else if (type === "PrizePoolData") queryClient.invalidateQueries("fetchPrizePoolData");
       },
       onError: (res) => {
-        toast.error(res.response.data.message);
+        toast.error(res.response?.data?.message || "An error occurred");
         setOpenDelete(false);
       },
     }

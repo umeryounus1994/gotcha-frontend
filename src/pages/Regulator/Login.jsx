@@ -9,43 +9,57 @@ import { backendUrl } from "../../constants";
 import { useForm } from "@mantine/form";
 import toast from "react-hot-toast";
 import { useContext } from "react";
-import { UserContext } from "../../context";
+import { RegulatorContext } from "../../context/RegulatorContext";
 import { Lock, Mail } from "lucide-react";
 
-const Signin = () => {
+const RegulatorLogin = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { regulator, setRegulator } = useContext(RegulatorContext);
 
   const form = useForm({
     initialValues: {
       Email: "",
       Password: "",
     },
-
     validate: {
       Email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       Password: (value) => (value?.length > 0 ? null : "Enter Password"),
     },
   });
 
-  const handleSignin = useMutation(
+  const handleLogin = useMutation(
     async (values) => {
-      return axios.post(backendUrl + `/sponsors/login`, values);
+      return axios.post(backendUrl + `/regulator/login`, values);
     },
     {
       onSuccess: (response) => {
-        localStorage.setItem("user", JSON.stringify(response.data.data));
-        setUser(response.data.data);
-        navigate("/");
+        if (response.data.success) {
+          localStorage.setItem("regulator", JSON.stringify(response.data.data));
+          localStorage.setItem("regulatorToken", response.data.token);
+          setRegulator({
+            ...response.data.data,
+            token: response.data.token,
+          });
+          toast.success(response.data.message);
+          navigate("/regulator/dashboard");
+        } else {
+          toast.error(response.data.message || "Login failed");
+        }
       },
       onError: (err) => {
-        toast.error(err.response.data.message);
+        toast.error(
+          err.response?.data?.message || "Login failed. Please try again."
+        );
       },
     }
   );
-  if (user?.IsOwner) return <Navigate to={"/"} />;
+
+  if (regulator?.Role === "Regulator" && regulator?.token) {
+    return <Navigate to={"/regulator/dashboard"} />;
+  }
+
   return (
-    <form onSubmit={form.onSubmit((values) => handleSignin.mutate(values))}>
+    <form onSubmit={form.onSubmit((values) => handleLogin.mutate(values))}>
       <Stack
         w={450}
         m="auto"
@@ -64,8 +78,8 @@ const Signin = () => {
             borderRadius: "10px",
           }}
         >
-          <Title>Login</Title>
-          <Text c="gray">Sign In to you account</Text>
+          <Title>Regulator Login</Title>
+          <Text c="gray">Sign in to access compliance data</Text>
           <InputField
             placeholder={"Email"}
             required={true}
@@ -81,17 +95,17 @@ const Signin = () => {
             {...form.getInputProps("Password")}
           />
           <Button
-            label={"Signin"}
+            label={"Sign In"}
             type={"submit"}
-            loading={handleSignin.isLoading}
+            loading={handleLogin.isLoading}
           />
           <Group justify="center" mt="sm">
             <Text size="sm" c="dimmed">
-              Are you a regulator?{" "}
+              Admin login?{" "}
               <Anchor
                 component="button"
                 type="button"
-                onClick={() => navigate("/regulator/login")}
+                onClick={() => navigate("/signin")}
                 size="sm"
               >
                 Login here
@@ -104,4 +118,5 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default RegulatorLogin;
+

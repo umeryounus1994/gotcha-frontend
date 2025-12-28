@@ -8,7 +8,6 @@ import { backendUrl } from "../../constants";
 import axios from "axios";
 import { UserContext } from "../../context";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import InputField from "../../components/general/InputField";
 
 const Settings = () => {

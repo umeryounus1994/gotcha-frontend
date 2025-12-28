@@ -10,6 +10,10 @@ import {
   StarIcon,
   TreePine,
   User2Icon,
+  Trophy,
+  Sparkles,
+  Database,
+  Dice6,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -69,6 +73,38 @@ export default function Sidebar() {
             label: "Packages",
             icon: <User2Icon size={18} color='gray'/>,
             to: "/packages",
+          },
+          {
+            label: "Regulators",
+            icon: <User2Icon size={18} color='gray'/>,
+            to: "/regulators",
+          },
+        ],
+      },
+      {
+        label: "Prize Pool",
+        icon: <Trophy size={18} color='gray'/>,
+        isLink: false,
+        children: [
+          {
+            label: "Prize Pool",
+            icon: <Trophy size={18} color='gray'/>,
+            to: "/prize-pool",
+          },
+          {
+            label: "Generate Drop",
+            icon: <Sparkles size={18} color='gray'/>,
+            to: "/generate-drop",
+          },
+          {
+            label: "RNG Data",
+            icon: <Dice6 size={18} color='gray'/>,
+            to: "/rng-data",
+          },
+          {
+            label: "Prize Pool Data",
+            icon: <Database size={18} color='gray'/>,
+            to: "/prize-pool-data",
           },
         ],
       },
