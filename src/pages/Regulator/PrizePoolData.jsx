@@ -1,4 +1,4 @@
-import { Box, Flex, Button, Text, Badge } from "@mantine/core";
+import { Box, Flex, Button, Text, Badge, Group } from "@mantine/core";
 import DataGrid from "../../components/general/Table";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 const PrizePoolData = () => {
   const { regulator } = useContext(RegulatorContext);
   const [data, setData] = useState([]);
+  const [totalPoolValue, setTotalPoolValue] = useState(0);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
@@ -43,6 +44,7 @@ const PrizePoolData = () => {
       onSuccess: (res) => {
         if (res.data.success) {
           setData(res.data.data || []);
+          setTotalPoolValue(res.data.totalPoolValue || 0);
         }
       },
       onError: (err) => {
@@ -235,6 +237,25 @@ const PrizePoolData = () => {
 
   return (
     <Box>
+      {/* Statistics Card */}
+      <Group gap="md" mb="md" justify="flex-end">
+        <Box
+          p="md"
+          style={{
+            border: "1px solid #e0e0e0",
+            borderRadius: "8px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+          }}
+        >
+          <Text size="sm" c="dimmed" mb={4}>
+            Total Pool Value (AUD)
+          </Text>
+          <Text size="xl" fw={600} c="green">
+            ${totalPoolValue.toLocaleString()}
+          </Text>
+        </Box>
+      </Group>
+
       <Flex gap="md" mb="md" align="flex-end" wrap="wrap">
         <DatePickerInput
           label="Start Date"
@@ -269,6 +290,35 @@ const PrizePoolData = () => {
         columns={columns}
         progressPending={status === "loading"}
       />
+      
+      {/* Internal Compliance Audit Checks Section */}
+      <Box mt="xl" p="md">
+        <Text c="red" size="sm" mb="md" fw={500}>
+          Internal Compliance Audit Checks (Monthly)
+        </Text>
+        <Button
+          component="a"
+          href="https://drive.google.com/drive/folders/1NZUclHvqUKAyzwnw_0DxgklGWAsDJRlu?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          styles={{
+            root: {
+              backgroundColor: "#dc3545",
+              borderColor: "#dc3545",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#c82333",
+                borderColor: "#bd2130",
+              },
+            },
+            label: {
+              color: "#fff",
+            },
+          }}
+        >
+          View Internal Audits
+        </Button>
+      </Box>
     </Box>
   );
 };

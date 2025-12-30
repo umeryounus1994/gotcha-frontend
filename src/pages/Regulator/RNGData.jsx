@@ -219,19 +219,19 @@ const RNGData = () => {
             clearable
           />
         </Flex>
-        <Group gap="md">
+        <Group gap="md" align="flex-end">
           <Box
-            p="md"
             style={{
               border: "1px solid #e0e0e0",
               borderRadius: "8px",
+              padding: "10px 16px",
+              display: "flex",
+              alignItems: "center",
+              height: "36px",
             }}
           >
-            <Text size="sm" c="dimmed" mb={4}>
-              Lines
-            </Text>
-            <Text size="xl" fw={600}>
-              {data.length}
+            <Text size="md" fw={500}>
+              Lines : {data.length}
             </Text>
           </Box>
           <Button

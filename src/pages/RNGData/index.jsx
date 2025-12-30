@@ -169,54 +169,54 @@ const RNGData = () => {
         subTitle={"Random Number Generator audit log and statistics"}
       />
 
-      {/* Statistics */}
-      {stats && (
-        <Group gap="md" p="md" pb={0} justify="flex-end">
-          <Box
-            p="md"
-            style={{
-              border: "1px solid #e0e0e0",
-              borderRadius: "8px",
-            }}
+      {/* Filters and Export */}
+      <Flex gap="md" m="md" align="flex-end" wrap="wrap" justify="space-between">
+        <Flex gap="md" align="flex-end" wrap="wrap">
+          <DatePickerInput
+            label="Start Date"
+            placeholder="Select start date"
+            value={startDate}
+            onChange={setStartDate}
+            clearable
+          />
+          <DatePickerInput
+            label="End Date"
+            placeholder="Select end date"
+            value={endDate}
+            onChange={setEndDate}
+            clearable
+          />
+        </Flex>
+        <Group gap="md" align="flex-end">
+          {stats && (
+            <Box
+              style={{
+                border: "1px solid #e0e0e0",
+                borderRadius: "8px",
+                padding: "10px 16px",
+                display: "flex",
+                alignItems: "center",
+                height: "36px",
+              }}
+            >
+              <Text size="md" fw={500}>
+                Lines : {stats.lines || 0}
+              </Text>
+            </Box>
+          )}
+          <Button
+            onClick={handleExportExcel}
+            primary={false}
           >
-            <Text size="sm" c="dimmed" mb={4}>
-              Lines
-            </Text>
-            <Text size="xl" fw={600}>
-              {stats.lines || 0}
-            </Text>
-          </Box>
+            Export Excel
+          </Button>
+          <Button
+            onClick={handleExportCSV}
+            primary={false}
+          >
+            Export CSV
+          </Button>
         </Group>
-      )}
-
-      {/* Filters */}
-      <Flex gap="md" m="md" align="flex-end" wrap="wrap">
-        <DatePickerInput
-          label="Start Date"
-          placeholder="Select start date"
-          value={startDate}
-          onChange={setStartDate}
-          clearable
-        />
-        <DatePickerInput
-          label="End Date"
-          placeholder="Select end date"
-          value={endDate}
-          onChange={setEndDate}
-          clearable
-        />
-        <Button
-          onClick={handleExportExcel}
-          primary={false}
-        >
-          Export Excel
-        </Button>
-        <Button
-          onClick={handleExportCSV}
-          primary={false}
-        >
-          Export CSV
-        </Button>
       </Flex>
 
       <Box p={"md"}>
