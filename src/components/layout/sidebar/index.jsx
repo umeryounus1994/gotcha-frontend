@@ -14,6 +14,8 @@ import {
   Sparkles,
   Database,
   Dice6,
+  Users,
+  TrendingUp,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -78,6 +80,16 @@ export default function Sidebar() {
             label: "Regulators",
             icon: <User2Icon size={18} color='gray'/>,
             to: "/regulators",
+          },
+          {
+            label: "Affiliates",
+            icon: <Users size={18} color='gray'/>,
+            to: "/affiliates",
+          },
+          {
+            label: "Affiliate Sales",
+            icon: <TrendingUp size={18} color='gray'/>,
+            to: "/affiliate-sales",
           },
         ],
       },

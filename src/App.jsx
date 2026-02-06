@@ -26,6 +26,11 @@ import RegulatorLogin from "./pages/Regulator/Login";
 import RegulatorShell from "./components/layout/regulator-shell";
 import RegulatorDashboard from "./pages/Regulator/Dashboard";
 import Regulators from "./pages/Regulators";
+import AffiliateLogin from "./pages/Affiliate/Login";
+import AffiliateShell from "./components/layout/affiliate-shell";
+import AffiliateDashboard from "./pages/Affiliate/Dashboard";
+import Affiliates from "./pages/Affiliates";
+import AffiliateSales from "./pages/AffiliateSales";
 import GenerateDrop from "./pages/PrizeDrop/GenerateDrop";
 import PrizePoolData from "./pages/PrizePoolData";
 import RNGData from "./pages/RNGData";
@@ -39,6 +44,10 @@ function App() {
           <Route path="/regulator/login" element={<RegulatorLogin />} />
           <Route path="/regulator" element={<RegulatorShell />}>
             <Route path="dashboard" element={<RegulatorDashboard />} />
+          </Route>
+          <Route path="/affiliate/login" element={<AffiliateLogin />} />
+          <Route path="/affiliate" element={<AffiliateShell />}>
+            <Route path="dashboard" element={<AffiliateDashboard />} />
           </Route>
           <Route path="/" element={<CustomAppShell />}>
             <Route path="/" element={<Dashboard />} />
@@ -60,6 +69,8 @@ function App() {
             <Route path="/prize-pool-data" element={<PrizePoolData />} />
             <Route path="/rng-data" element={<RNGData />} />
             <Route path="/regulators" element={<Regulators />} />
+            <Route path="/affiliates" element={<Affiliates />} />
+            <Route path="/affiliate-sales" element={<AffiliateSales />} />
           </Route>
         </Routes>
       </BrowserRouter>

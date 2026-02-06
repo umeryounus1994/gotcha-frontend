@@ -9,43 +9,58 @@ import { backendUrl } from "../../constants";
 import { useForm } from "@mantine/form";
 import toast from "react-hot-toast";
 import { useContext } from "react";
-import { UserContext } from "../../context";
+import { AffiliateContext } from "../../context/AffiliateContext";
 import { Lock, Mail } from "lucide-react";
 
-const Signin = () => {
+const AffiliateLogin = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { affiliate, setAffiliate } = useContext(AffiliateContext);
 
   const form = useForm({
     initialValues: {
       Email: "",
       Password: "",
     },
-
     validate: {
       Email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       Password: (value) => (value?.length > 0 ? null : "Enter Password"),
     },
   });
 
-  const handleSignin = useMutation(
+  const handleLogin = useMutation(
     async (values) => {
-      return axios.post(backendUrl + `/sponsors/login`, values);
+      return axios.post(backendUrl + `/affiliates/login`, values);
     },
     {
       onSuccess: (response) => {
-        localStorage.setItem("user", JSON.stringify(response.data.data));
-        setUser(response.data.data);
-        navigate("/");
+        if (response.data.success) {
+          localStorage.setItem("affiliate_data", JSON.stringify(response.data.data));
+          localStorage.setItem("affiliate_token", response.data.token);
+          setAffiliate({
+            ...response.data.data,
+            role: "affiliate",
+            token: response.data.token,
+          });
+          toast.success(response.data.message);
+          navigate("/affiliate/dashboard");
+        } else {
+          toast.error(response.data.message || "Login failed");
+        }
       },
       onError: (err) => {
-        toast.error(err.response.data.message);
+        toast.error(
+          err.response?.data?.message || "Login failed. Please try again."
+        );
       },
     }
   );
-  if (user?.IsOwner) return <Navigate to={"/"} />;
+
+  if (affiliate?.role === "affiliate" && affiliate?.token) {
+    return <Navigate to={"/affiliate/dashboard"} />;
+  }
+
   return (
-    <form onSubmit={form.onSubmit((values) => handleSignin.mutate(values))}>
+    <form onSubmit={form.onSubmit((values) => handleLogin.mutate(values))}>
       <Stack
         w={450}
         m="auto"
@@ -64,8 +79,8 @@ const Signin = () => {
             borderRadius: "10px",
           }}
         >
-          <Title>Login</Title>
-          <Text c="gray">Sign In to you account</Text>
+          <Title>Affiliate Login</Title>
+          <Text c="gray">Sign in to your account</Text>
           <InputField
             placeholder={"Email"}
             required={true}
@@ -81,33 +96,20 @@ const Signin = () => {
             {...form.getInputProps("Password")}
           />
           <Button
-            label={"Signin"}
+            label={"Sign in"}
             type={"submit"}
-            loading={handleSignin.isLoading}
+            loading={handleLogin.isLoading}
           />
-          <Group justify="center" mt="sm" gap="xs">
+          <Group justify="center" mt="sm">
             <Text size="sm" c="dimmed">
-              Are you a regulator?{" "}
+              Admin login?{" "}
               <Anchor
                 component="button"
                 type="button"
-                onClick={() => navigate("/regulator/login")}
+                onClick={() => navigate("/signin")}
                 size="sm"
               >
                 Login here
-              </Anchor>
-            </Text>
-          </Group>
-          <Group justify="center">
-            <Text size="sm" c="dimmed">
-              Affiliate?{" "}
-              <Anchor
-                component="button"
-                type="button"
-                onClick={() => navigate("/affiliate/login")}
-                size="sm"
-              >
-                Affiliate login
               </Anchor>
             </Text>
           </Group>
@@ -117,4 +119,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default AffiliateLogin;

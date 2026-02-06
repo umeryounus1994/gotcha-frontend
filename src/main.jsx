@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/index.jsx";
 import { RegulatorProvider } from "./context/RegulatorContext.jsx";
+import { AffiliateProvider } from "./context/AffiliateContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,10 +21,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <UserProvider>
       <RegulatorProvider>
-        <QueryClientProvider client={queryClient}>
-          <Toaster />
-          <App />
-        </QueryClientProvider>
+        <AffiliateProvider>
+          <QueryClientProvider client={queryClient}>
+            <Toaster />
+            <App />
+          </QueryClientProvider>
+        </AffiliateProvider>
       </RegulatorProvider>
     </UserProvider>
   </React.StrictMode>
