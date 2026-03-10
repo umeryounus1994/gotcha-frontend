@@ -45,12 +45,12 @@ const Affiliates = () => {
   const filteredItems = data;
 
   return (
-    <Box bg="white" style={{ borderRadius: "5px", overflow: "hidden" }}>
+    <Box bg="white" style={{ borderRadius: "5px" }}>
       <PageHeader
         title={"Register Affiliate"}
         subTitle={"View and manage affiliates. Affiliate URL and Tracking ID must be unique."}
       />
-      <Flex gap="xl" m="md" align="center" wrap="wrap">
+      <Flex gap="xl" my="md" wrap="wrap">
         <InputField
           placeholder={"Search by name or email..."}
           style={{ flex: 1, minWidth: "200px" }}
@@ -67,7 +67,7 @@ const Affiliates = () => {
           }}
         />
       </Flex>
-      <Box px="md" pb="md">
+      <Box p="md">
         <DataGrid
           data={filteredItems}
           columns={Columns(setOpen, setEditData)}

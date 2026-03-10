@@ -3,6 +3,7 @@ import {
   Building2,
   CheckCircle2Icon,
   DropletIcon,
+  FileText,
   GaugeCircleIcon,
   List,
   Puzzle,
@@ -77,6 +78,11 @@ export default function Sidebar() {
             to: "/packages",
           },
           {
+            label: "Fulfilment Packages",
+            icon: <User2Icon size={18} color='gray'/>,
+            to: "/fulfillment-packages",
+          },
+          {
             label: "Regulators",
             icon: <User2Icon size={18} color='gray'/>,
             to: "/regulators",
@@ -90,6 +96,11 @@ export default function Sidebar() {
             label: "Affiliate Sales",
             icon: <TrendingUp size={18} color='gray'/>,
             to: "/affiliate-sales",
+          },
+          {
+            label: "Invoices",
+            icon: <FileText size={18} color='gray'/>,
+            to: "/invoices",
           },
         ],
       },
@@ -118,6 +129,11 @@ export default function Sidebar() {
             icon: <Database size={18} color='gray'/>,
             to: "/prize-pool-data",
           },
+          {
+            label: "Prize Orders",
+            icon: <Database size={18} color='gray'/>,
+            to: "/prize-orders",
+          },
         ],
       },
       {
@@ -140,6 +156,11 @@ export default function Sidebar() {
             label: "Settings",
             icon: <Settings size={18} color='gray'/>,
             to: "/settings",
+          },
+          {
+            label: "ID Verification",
+            icon: <CheckCircle2Icon size={18} color='gray'/>,
+            to: "/id-verification",
           },
         ],
       },

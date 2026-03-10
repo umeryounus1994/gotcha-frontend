@@ -20,6 +20,7 @@ import Company from "./pages/Companies";
 import ViewParks from "./pages/Park/ViewParks";
 import ViewDrops from "./pages/Drop/ViewDrops";
 import Packages from "./pages/Packages";
+import FulfillmentPackages from "./pages/FulfillmentPackages";
 import Versions from "./pages/Versions/index";
 import PrizePool from "./pages/PrizePool";
 import RegulatorLogin from "./pages/Regulator/Login";
@@ -34,6 +35,9 @@ import AffiliateSales from "./pages/AffiliateSales";
 import GenerateDrop from "./pages/PrizeDrop/GenerateDrop";
 import PrizePoolData from "./pages/PrizePoolData";
 import RNGData from "./pages/RNGData";
+import PrizeOrders from "./pages/PrizeOrders";
+import IDVerification from "./pages/IDVerification";
+import Invoices from "./pages/Invoices";
   
 function App() {
   return (
@@ -63,14 +67,18 @@ function App() {
             <Route path="/coupons" element={<Coupons />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/packages" element={<Packages />} />
+            <Route path="/fulfillment-packages" element={<FulfillmentPackages />} />
             <Route path="/versions" element={<Versions />} />
             <Route path="/prize-pool" element={<PrizePool />} />
             <Route path="/generate-drop" element={<GenerateDrop />} />
             <Route path="/prize-pool-data" element={<PrizePoolData />} />
             <Route path="/rng-data" element={<RNGData />} />
+            <Route path="/prize-orders" element={<PrizeOrders />} />
             <Route path="/regulators" element={<Regulators />} />
             <Route path="/affiliates" element={<Affiliates />} />
             <Route path="/affiliate-sales" element={<AffiliateSales />} />
+            <Route path="/id-verification" element={<IDVerification />} />
+            <Route path="/invoices" element={<Invoices />} />
           </Route>
         </Routes>
       </BrowserRouter>

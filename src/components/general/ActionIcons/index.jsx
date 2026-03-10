@@ -43,6 +43,8 @@ const ActionIcons = ({
         link = backendUrl + `/coupons/delete-group/${rowData._id}`;
       else if (type === "Package")
         link = backendUrl + `/packages/delete/${rowData._id}`;
+      else if (type === "FulfillmentPackage")
+        link = backendUrl + `/fulfillment-packages/delete/${rowData._id}`;
       else if (type === "Versions")
         link = backendUrl + `/versions/delete/${rowData._id}`;
       else if (type === "PrizePool") {
@@ -73,6 +75,8 @@ const ActionIcons = ({
           queryClient.invalidateQueries("fetchCoupons");
         else if (type === "parks") queryClient.invalidateQueries("fetchParks");
         else if (type === "Package") queryClient.invalidateQueries("fetchPackages");
+        else if (type === "FulfillmentPackage")
+          queryClient.invalidateQueries("fetchFulfillmentPackages");
         else if (type === "Versions") queryClient.invalidateQueries("fetchVersions");
         else if (type === "PrizePool") queryClient.invalidateQueries("fetchPrizePool");
         else if (type === "Regulator") queryClient.invalidateQueries("fetchRegulators");
